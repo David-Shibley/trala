@@ -9,7 +9,7 @@ import { Shot } from "./types";
 
 describe("Scorecard", () => {
   describe("defaultData", () => {
-    const scorecard = new Scorecard(gameData);
+    const scorecard = new Scorecard(gameData) as any;
     const expectedScore = [9, 21, 56, 68, 75, 75, 90, 100, 114, 129];
     const sampleRound = gameData[0];
 
@@ -20,7 +20,7 @@ describe("Scorecard", () => {
     test("calculateGoat", () => {
       const failedGoat = scorecard.calculateGoat(sampleRound.made_shots);
       const successfulGoat = scorecard.calculateGoat(
-        Object.keys(scorecard.court) as Shot[]
+        Object.keys((Scorecard as any).COURT) as Shot[]
       );
       expect(failedGoat).toBe(false);
       expect(successfulGoat).toBe(true);
@@ -80,7 +80,7 @@ describe("Scorecard", () => {
   });
 
   describe("game with 20 rounds", () => {
-    const scorecard = new Scorecard(gameData20);
+    const scorecard = new Scorecard(gameData20) as any;
     const expectedScore = [
       9, 21, 56, 68, 75, 75, 90, 100, 114, 129, 138, 150, 185, 197, 204, 204,
       219, 229, 243, 258,
@@ -92,7 +92,7 @@ describe("Scorecard", () => {
   });
 
   describe("game with heat check final round", () => {
-    const scorecard = new Scorecard(gameWithHeatCheckFinalRound);
+    const scorecard = new Scorecard(gameWithHeatCheckFinalRound) as any;
     const expectedScore = [9, 89];
 
     test("getScore", () => {
@@ -101,7 +101,7 @@ describe("Scorecard", () => {
   });
 
   describe("game with heat check final round", () => {
-    const scorecard = new Scorecard(gameWithHeatCheckNotFinalRound);
+    const scorecard = new Scorecard(gameWithHeatCheckNotFinalRound) as any;
     const expectedScore = [9, 104, 113];
 
     test("getScore", () => {
