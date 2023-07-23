@@ -26,26 +26,26 @@ describe("Scorecard", () => {
       expect(successfulGoat).toBe(true);
     });
 
-    test("getRoundScore", () => {
-      const score = scorecard.getRoundScore(
+    test("calculateRoundScore", () => {
+      const score = scorecard.calculateRoundScore(
         scorecard.processGameData([gameData[2]])[0],
         false
       );
       expect(score).toBe(35);
     });
 
-    test("getRoundScore", () => {
-      const score = scorecard.getRoundScore(
+    test("calculateRoundScore", () => {
+      const score = scorecard.calculateRoundScore(
         scorecard.processGameData([gameData[2]])[0],
         true
       );
       expect(score).toBe(35);
     });
 
-    test("getBonusScore", () => {
+    test("calculateBonusScore when goat is false and not final round", () => {
       const roundWithBonusShots = gameData[2];
       if (roundWithBonusShots.made_bonus_shots) {
-        const bonusScore = scorecard.getBonusScore(
+        const bonusScore = scorecard.calculateBonusScore(
           roundWithBonusShots.made_bonus_shots,
           false,
           false
@@ -54,10 +54,10 @@ describe("Scorecard", () => {
       }
     });
 
-    test("getBonusScore", () => {
+    test("calculateBonusScore when goat is true but not final round", () => {
       const roundWithBonusShots = gameData[2];
       if (roundWithBonusShots.made_bonus_shots) {
-        const bonusScore = scorecard.getBonusScore(
+        const bonusScore = scorecard.calculateBonusScore(
           roundWithBonusShots.made_bonus_shots,
           true,
           false
@@ -66,10 +66,10 @@ describe("Scorecard", () => {
       }
     });
 
-    test("getBonusScore", () => {
+    test("calculateBonusScore when goat is true and final round", () => {
       const roundWithBonusShots = gameData[2];
       if (roundWithBonusShots.made_bonus_shots) {
-        const bonusScore = scorecard.getBonusScore(
+        const bonusScore = scorecard.calculateBonusScore(
           roundWithBonusShots.made_bonus_shots,
           true,
           true
