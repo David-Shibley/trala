@@ -11,8 +11,8 @@ export interface ProcessedRound extends Round {
 }
 
 export type Court = {
-    [key in Shot]: number
-}
+  [key in Shot]: number;
+};
 
 export type Shot =
   | "blue1"

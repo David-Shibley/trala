@@ -35,11 +35,11 @@ export default class Scorecard {
   }
 
   getBonusScore(shots: Shot[], finalRound: boolean, goat: boolean): number {
-    let multiplier = 1
+    let multiplier = 1;
     if (!goat && finalRound) {
-        multiplier = this.FINAL_ROUND_BONUS_SHOT_MULTIPLIER
+      multiplier = this.FINAL_ROUND_BONUS_SHOT_MULTIPLIER;
     } else if (!goat) {
-        multiplier = this.BONUS_SHOT_MULTIPLIER
+      multiplier = this.BONUS_SHOT_MULTIPLIER;
     }
     return (
       multiplier *
@@ -53,35 +53,46 @@ export default class Scorecard {
   getRoundScore(round: ProcessedRound, finalRound: boolean): number {
     let maxRedScores = this.MAX_RED_SHOTS;
     let totalScore = 0;
+
     round.made_shots.forEach((shot) => {
       if (maxRedScores < 0) {
         totalScore = maxRedScores;
       } else if (shot === "red1" || shot === "red2") {
         maxRedScores--;
         totalScore++;
-        if (maxRedScores < 0) totalScore = 0
+        if (maxRedScores < 0) totalScore = 0;
       } else {
         const score = this.court[shot];
         totalScore += score;
       }
     });
-    console.log('HERE:', totalScore)
+
     if (finalRound) {
       const averageRoundScore =
         totalScore / (this.processedGameData.length - 1);
       if ((averageRoundScore >= 30 || round.goat) && round.made_bonus_shots) {
-        totalScore += this.getBonusScore(round.made_bonus_shots, finalRound, round.goat);
+        totalScore += this.getBonusScore(
+          round.made_bonus_shots,
+          finalRound,
+          round.goat
+        );
       }
     } else {
       if ((totalScore >= 45 || round.goat) && round.made_bonus_shots) {
-        totalScore += this.getBonusScore(round.made_bonus_shots, finalRound, round.goat);
+        totalScore += this.getBonusScore(
+          round.made_bonus_shots,
+          finalRound,
+          round.goat
+        );
       }
     }
+
     return totalScore - round.minusPoints;
   }
 
   generateScoreCard(gameData: ProcessedRound[]): number[] {
     let totalScore = 0;
+
     return gameData.map((round, index) => {
       totalScore += this.getRoundScore(round, !(index < gameData.length - 1));
       return totalScore;

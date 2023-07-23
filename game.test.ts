@@ -1,4 +1,9 @@
-import { gameData, gameData20, gameWithHeatCheckFinalRound, gameWithHeatCheckNotFinalRound } from "./gameData";
+import {
+  gameData,
+  gameData20,
+  gameWithHeatCheckFinalRound,
+  gameWithHeatCheckNotFinalRound,
+} from "./gameData";
 import Scorecard from "./scoreboard";
 import { Shot } from "./types";
 
@@ -77,26 +82,8 @@ describe("Scorecard", () => {
   describe("game with 20 rounds", () => {
     const scorecard = new Scorecard(gameData20);
     const expectedScore = [
-      9,
-      21,
-      56,
-      68,
-      75,
-      75,
-      90,
-      100,
-      114,
-      129,
-      138,
-      150,
-      185,
-      197,
-      204,
-      204,
-      219,
-      229,
-      243,
-      258,
+      9, 21, 56, 68, 75, 75, 90, 100, 114, 129, 138, 150, 185, 197, 204, 204,
+      219, 229, 243, 258,
     ];
 
     test("getScore", () => {
